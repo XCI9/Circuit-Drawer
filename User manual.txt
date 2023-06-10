@@ -1,0 +1,123 @@
+Index :
+    General- - - - - - - - - - - - - - - - - - - - - -  12
+        Element code
+        Element label
+        Element ID
+    About settings - - - - - - - - - - - - - - - - - -  34
+        Setting sheet format 
+        Escape sequence 
+    Avaliable settings - - - - - - - - - - - - - - - -  57
+    Circuit string example - - - - - - - - - - - - - - 107
+    Setting sheet example- - - - - - - - - - - - - - - 115
+General :
+    Element code (elemCode) : 
+        R : resistor
+        L : inductor
+        C : capacitor
+        I : independent current source
+        i : dependent   current cource 
+        V : independent voltage source
+        v : dependent   volatge cource
+        A : arrow
+        b : box
+        n : Node
+        m : mesh current
+        w : numbered wire
+        . : unnumbered wire
+        , : diagonal only unnumbered wire
+    Element label (label): 
+        Besides unnerbered wires, each element are given a one character lable.
+        It can be any character and can be duplicat.
+    Element ID (elemID):
+        Element ID is elemCode + label. 
+        Ex : R1, L2, Va, m1 ... etc.
+About setting :
+    Setting sheet format :
+        elemID   : setting = argument
+        elemCode : setting = arg1 arg2 arg3
+        arguments are spearated by space. Elements with the same element code
+        are put in an container (if there are two or more of them). They are
+        sorted according to thier lables, args for them should follow this order .
+        >> R1 : value  = 1Ω 
+        >> R3 : value  = 2Ω 
+        >> Ra : value  = 3Ω 
+        The above settings would be equavilant as below.
+        >> R  : values = 1Ω 2Ω 3Ω
+    Escape sequence :
+        !!    ---> ! 
+        !     --->    (space)
+        !i{A} ---> \mathit{A}
+        !b{A} ---> \mathbf{A}
+        !r{A} ---> \mathrm{A}
+        !s{A} ---> \mathrm\mathsf{A}
+        !p{A} ---> \phase{A^{\circ}}
+        !0{A} --->  A (also keep it as raw string, not warpped by $$).
+        >> b1 : value  = !b{Z}_!i{L} # blod captial Z with subscript L
+        >> b1 : value  = !0{text}    # text not in math font
+Settings :
+    value(s) :
+        >> R1 : value  = 1kΩ
+        >> L  : values = 2mH 4mH 6mH
+    valuePos(s) :
+        >> R1 : valuePos  = RHS
+        >> L  : valuePoss = RHS LHS RHS
+        Can be RHS or LHS, (+, -) pair will be display on the other side.
+    direction(s) :
+        >> R1 : direction  = R
+        >> L  : directions = R RU L    
+        8 directions are shorted as 'U', 'D', 'L', 'R', 'RU', 'RD', 'LU', 'LD'.
+    pm :
+        >> R1 : pm = +  -  v_o 
+        >> n1 : pm = +  n2 v_o 
+        First  format : (first sign, second sign, text)
+        Second format : (local sign, destination, text)
+    move, (pm/value)Move :
+        >> R1 : move      = 0.1 0.4
+        >> L1 : pmMove    = 0  -0.1
+        >> C1 : valueMove = 0.4  0
+        |   _______________   
+        |   |             | ^
+        |   |     obj     | | move[1] (vertical)
+        |   |_____________|
+        |       ----> move[0] (parallel)
+        It moves an element or moves (pm/value) from its reference element.
+    pmSep :
+        >> R1 : pmSep = 0.5
+        >> L1 : pmSep = -0.7
+        |   _______________   
+        |   |             |
+        |   |     obj     |
+        |   |_____________|
+        | +        c        -
+        |  <------> <------>
+        |               ^(1 + pmSep) 
+    shape :
+        >> A1 : shape = mid
+        >> A2 : shape = end
+        ( mid --->--- ),  ( end  -----> )
+    fill(s) :
+        >> n1 : fill  = T
+        >> n  : fills = F T F
+        This setting is for node only.
+        ( T for filled node ), ( F for hollow node )
+    ground :
+        >> w1 : ground = F
+        >> wg : ground = T
+        ( T for it connects to ground), ( F for not )
+Circuit string example :
+    >> circuit = '''\
+    >> .. .. L1 .. .. A1 .. .. n1
+    >> .. ,,       ..    ..
+    >> Va    R1    C1    i1
+    >> ..       ,, ..    ..
+    >> .. .. C0 .. .. .. .. .. n2
+    >> #'''
+Setting sheet example :
+    >> setting = '''\
+    >> R1 : pvMove    = 0 0.1
+    >> n1 : pm        = - n2 v_o
+    >> i1 : direction = D
+    >> i1 : value     = 2I_x
+    >> A1 : value     = I_x
+    >> C  : values    = 2\\muF 4\\muF
+    >> #'''
