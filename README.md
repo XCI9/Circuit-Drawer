@@ -1,5 +1,6 @@
-# Circuit Drawer
-A tool to draw svg circuit diagrams.
+# Circuit Drawer - A tool to draw svg circuit diagrams
+In this project, user can make circuit diagram scheme by a string 
+then apply setting on each element. The input is an svg diagram.
 # Installation
 
 ### Python 
