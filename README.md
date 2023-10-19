@@ -2,6 +2,15 @@
 
 # Installation
 
+### Python 
+- require 3.11.4+
+
+### Install reuqired package
+- To install the required package run the command below.
+```
+pip install -r requirements.txt
+```
+
 # How to use
 Draw a circuit scheme by declare a string as below.
 ```python
