@@ -1,5 +1,5 @@
 # Circuit Drawer
-
+A tool to draw svg circuit diagrams.
 # Installation
 
 ### Python 
